@@ -24,11 +24,27 @@ class SpriteGroup():
 class Ball(pygame.sprite.Sprite):
 
     def __init__(self, radius, pos_x, pos_y):
+        super().__init__()
+        
         self.image = pygame.Surface((radius*2, radius*2))
+        self.rect = self.image.get_rect(center=(pos_x, pos_y))
+        
         pygame.draw.circle(self.image, light_cyan, (radius, radius), radius)
         self.image.set_colorkey(BLACK)
 
+
+class Player(pygame.sprite.Sprite):
+    """Class representing player's paddle"""
+    def __init__(self, width, height, pos_x, pos_y):
+        super().__init__()
+
+        self.image = pygame.Surface((width, height))
         self.rect = self.image.get_rect(center=(pos_x, pos_y))
+
+        self.image.fill(sandy)
+
+
+
 
 ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
 sprites = SpriteGroup(ball_1)

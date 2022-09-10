@@ -1,7 +1,7 @@
 from my_funcs import to_rgb
 
 WIDTH = 800
-HEIGHT = 600
+HEIGHT = 500
 FPS = 60
 
 # Colours
