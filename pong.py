@@ -1,5 +1,6 @@
 import pygame, sys
 from settings import *
+from sprites import *
 from my_funcs import natural_sort as natsort
 
 # General Setup
@@ -20,6 +21,7 @@ def main():
 
         # Render / Draw
         screen.fill(dark_cyan)
+        sprites.draw(screen)
 
         # Update Display / Limit FPS
         pygame.display.flip()

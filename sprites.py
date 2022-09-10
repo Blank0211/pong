@@ -1,4 +1,7 @@
 # Classes and instances for sprites
+from settings import *
+import pygame
+
 class SpriteGroup():
     """Class for managing sprite objects"""
     def __init__(self, *sprite_objs):
@@ -22,8 +25,11 @@ class Ball(pygame.sprite.Sprite):
 
     def __init__(self, radius, pos_x, pos_y):
         self.image = pygame.Surface((radius*2, radius*2))
-        pygame.draw.circle(self.image, light_cyan, radius)
+        pygame.draw.circle(self.image, light_cyan, (radius, radius), radius)
         self.image.set_colorkey(BLACK)
 
         self.rect = self.image.get_rect(center=(pos_x, pos_y))
+
+ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
+sprites = SpriteGroup(ball_1)
 
