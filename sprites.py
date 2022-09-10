@@ -39,13 +39,14 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface((width, height))
-        self.rect = self.image.get_rect(center=(pos_x, pos_y))
+        self.rect = self.image.get_rect(midright=(pos_x, pos_y))
 
         self.image.fill(sandy)
 
 
 
-
+paddle_1 = Player(pad_width, pad_height, WIDTH, HEIGHT//2)
 ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
-sprites = SpriteGroup(ball_1)
+
+sprites = SpriteGroup(ball_1, paddle_1)
 
