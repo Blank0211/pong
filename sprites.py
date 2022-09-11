@@ -28,25 +28,77 @@ class Ball(pygame.sprite.Sprite):
         
         self.image = pygame.Surface((radius*2, radius*2))
         self.rect = self.image.get_rect(center=(pos_x, pos_y))
-        
         pygame.draw.circle(self.image, light_cyan, (radius, radius), radius)
         self.image.set_colorkey(BLACK)
+
+        self.vel_x = 5
+        self.vel_y = 5
+
+    def update(self, *args):
+        if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
+            self.vel_y *= -1
+        if (self.rect.left < 0) or (self.rect.right > WIDTH):
+            self.vel_x *= -1
+
+        self.rect.x += self.vel_x
+        self.rect.y += self.vel_y
+
+
+
 
 
 class Player(pygame.sprite.Sprite):
     """Class representing player's paddle"""
-    def __init__(self, width, height, pos_x, pos_y):
+    def __init__(self, speed, **pos):
         super().__init__()
 
-        self.image = pygame.Surface((width, height))
-        self.rect = self.image.get_rect(midright=(pos_x, pos_y))
-
+        self.image = pygame.Surface((pad_width, pad_height))
         self.image.fill(sandy)
+        self.rect = self.image.get_rect(**pos)
+
+        self.speed = speed
+
+    def update(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_w]:
+            self.rect.y -= self.speed
+        if keys[pygame.K_s]:
+            self.rect.y += self.speed
+
+
+class AiPlayer(pygame.sprite.Sprite):
+    """Class representing player's paddle"""
+    def __init__(self, speed, **pos):
+        super().__init__()
+
+        self.image = pygame.Surface((pad_width, pad_height))
+        self.image.fill(sandy)
+        self.rect = self.image.get_rect(**pos)
+
+        self.speed = speed
+
+    def update(self):
+        if self.rect.top >= ball_1.rect.top:
+            self.rect.y -= self.speed
+        if self.rect.bottom <= ball_1.rect.bottom:
+            self.rect.y += self.speed
+
+            
 
 
 
-paddle_1 = Player(pad_width, pad_height, WIDTH, HEIGHT//2)
+
+# ------ Sprite Instances ------
+
+# Place player paddle in mid right of screen
+paddle_1 = Player(player_speed, midright=(WIDTH, HEIGHT//2))
+
+# Place AI paddle in mid left of screen
+paddle_2 = AiPlayer(ai_speed, midleft=(0, HEIGHT//2))
+
+# Place ball in the middle of screen
 ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
 
-sprites = SpriteGroup(ball_1, paddle_1)
+sprites = SpriteGroup(ball_1, paddle_1, paddle_2)
 

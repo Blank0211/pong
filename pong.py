@@ -18,12 +18,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+        keys = pygame.key.get_pressed()
 
         # Render / Draw
         screen.fill(dark_cyan)
+        sprites.update()
         sprites.draw(screen)
 
-        # Update Display / Limit FPS
+        # Update Display & Limit FPS
         pygame.display.flip()
         clock.tick(FPS)
 

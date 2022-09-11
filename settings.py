@@ -6,8 +6,10 @@ HEIGHT = 500
 FPS = 60
 
 # Paddle Settings
-pad_width = 20
+pad_width = 10
 pad_height = 90
+player_speed = 6
+ai_speed = 6
 
 
 # Colours
