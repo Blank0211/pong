@@ -24,7 +24,7 @@ pad_color = light_cyan
 ball_color = sandy_2
 
 player_speed = 6
-ai_speed = 4
+ai_speed = 5
 ball_speed = None
 
 pad_width = 10
