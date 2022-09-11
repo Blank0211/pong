@@ -21,7 +21,7 @@ def main():
         keys = pygame.key.get_pressed()
 
         # Render / Draw
-        screen.fill(dark_cyan)
+        screen.fill(bg_color)
         sprites.update()
         sprites.draw(screen)
 

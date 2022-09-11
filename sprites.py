@@ -28,13 +28,18 @@ class Ball(pygame.sprite.Sprite):
         
         self.image = pygame.Surface((radius*2, radius*2))
         self.rect = self.image.get_rect(center=(pos_x, pos_y))
-        pygame.draw.circle(self.image, light_cyan, (radius, radius), radius)
+        pygame.draw.circle(self.image, ball_color, (radius, radius), radius)
         self.image.set_colorkey(BLACK)
 
         self.vel_x = 5
         self.vel_y = 5
 
     def update(self, *args):
+        if self.rect.colliderect(paddle_1.rect):
+            self.vel_x *= -1
+        if self.rect.colliderect(paddle_2.rect):
+            self.vel_x *= -1
+
         if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
             self.vel_y *= -1
         if (self.rect.left < 0) or (self.rect.right > WIDTH):
@@ -53,7 +58,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface((pad_width, pad_height))
-        self.image.fill(sandy)
+        self.image.fill(pad_color)
         self.rect = self.image.get_rect(**pos)
 
         self.speed = speed
@@ -73,7 +78,7 @@ class AiPlayer(pygame.sprite.Sprite):
         super().__init__()
 
         self.image = pygame.Surface((pad_width, pad_height))
-        self.image.fill(sandy)
+        self.image.fill(pad_color)
         self.rect = self.image.get_rect(**pos)
 
         self.speed = speed
@@ -92,10 +97,10 @@ class AiPlayer(pygame.sprite.Sprite):
 # ------ Sprite Instances ------
 
 # Place player paddle in mid right of screen
-paddle_1 = Player(player_speed, midright=(WIDTH, HEIGHT//2))
+paddle_1 = Player(player_speed, midright=(795, HEIGHT//2))
 
 # Place AI paddle in mid left of screen
-paddle_2 = AiPlayer(ai_speed, midleft=(0, HEIGHT//2))
+paddle_2 = AiPlayer(ai_speed, midleft=(5, HEIGHT//2))
 
 # Place ball in the middle of screen
 ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
