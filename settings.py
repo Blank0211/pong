@@ -1,3 +1,4 @@
+import pygame
 from my_funcs import to_rgb
 
 # Colours
@@ -8,6 +9,7 @@ dark_green = to_rgb('#002324')
 sandy = to_rgb('#d4cbc2')
 sandy_2 = to_rgb('#adaa9d')
 light_grey = to_rgb('#d9e0e9')
+grey3 = to_rgb('7686a6')
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -17,7 +19,7 @@ BLACK = (0, 0, 0)
 WIDTH = 800
 HEIGHT = 500
 FPS = 60
-bg_color = dark_green
+bg_color = dark_cyan
 
 # Paddle & Ball Settings
 pad_color = light_cyan

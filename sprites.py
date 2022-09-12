@@ -1,7 +1,9 @@
-# Classes and instances for sprites
-from settings import *
+import random
 import pygame
 
+from settings import *
+
+# Classes and instances for sprites
 class SpriteGroup():
     """Class for managing sprite objects"""
     def __init__(self, *sprite_objs):
@@ -34,6 +36,13 @@ class Ball(pygame.sprite.Sprite):
         self.vel_x = 5
         self.vel_y = 5
 
+    def restart(self):
+        if (self.rect.left < 0) or (self.rect.right > WIDTH):
+            self.rect.center = (WIDTH//2, HEIGHT//2)
+
+            self.vel_x *= random.choice([1, -1])
+            self.vel_y *= random.choice([1, -1])
+
     def update(self, *args):
         if self.rect.colliderect(paddle_1.rect):
             self.vel_x *= -1
@@ -43,7 +52,7 @@ class Ball(pygame.sprite.Sprite):
         if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
             self.vel_y *= -1
         if (self.rect.left < 0) or (self.rect.right > WIDTH):
-            self.vel_x *= -1
+            self.restart()
 
         self.rect.x += self.vel_x
         self.rect.y += self.vel_y
@@ -84,10 +93,19 @@ class AiPlayer(pygame.sprite.Sprite):
         self.speed = speed
 
     def update(self):
-        if self.rect.top >= ball_1.rect.top:
+        # if self.rect.top >= ball_1.rect.top:
+        #     self.rect.y -= self.speed
+        # if self.rect.bottom <= ball_1.rect.bottom:
+        #     self.rect.y += self.speed
+
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_UP]:
             self.rect.y -= self.speed
-        if self.rect.bottom <= ball_1.rect.bottom:
+        if keys[pygame.K_DOWN]:
             self.rect.y += self.speed
+
+
 
             
 

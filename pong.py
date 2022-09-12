@@ -6,6 +6,7 @@ from my_funcs import natural_sort as natsort
 # General Setup
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+scr_rect = screen.get_rect()
 pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
 
@@ -22,6 +23,7 @@ def main():
 
         # Render / Draw
         screen.fill(bg_color)
+        pygame.draw.aaline(screen, grey3, scr_rect.midtop, scr_rect.midbottom)
         sprites.update()
         sprites.draw(screen)
 
@@ -34,4 +36,4 @@ def main():
     sys.exit(0)
 
 if __name__ == '__main__':
-    main( )
+    main()
