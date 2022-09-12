@@ -1,3 +1,4 @@
+import os
 import pygame
 from my_funcs import to_rgb
 
@@ -32,4 +33,19 @@ ball_speed = None
 pad_width = 10
 pad_height = 90
 
+# Score
+pygame.font.init()
+score1 = 0
+score2 = 0
 
+roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
+my_font = pygame.font.Font(roboto1, 28)
+
+score1_surf = my_font.render(f'{score1}', True, light_grey)
+score2_surf = my_font.render(f'{score2}', True, light_grey)
+score1_pos = ((WIDTH//2) + 30, 10) # Right to mid
+score2_pos = ((WIDTH//2) - 30, 10) # Left to mid
+score1_rect = score1_surf.get_rect(midtop=score1_pos)
+score2_rect = score2_surf.get_rect(midtop=score2_pos)
+
+scores_info = [(score1_surf, score1_rect), (score2_surf, score2_rect)]
