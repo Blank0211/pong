@@ -1,5 +1,6 @@
 import random
 import pygame
+pygame.font.init()
 
 from settings import *
 
@@ -37,17 +38,24 @@ class Ball(pygame.sprite.Sprite):
         self.vel_y = 5
 
     def restart(self):
-        if (self.rect.left < 0) or (self.rect.right > WIDTH):
-            self.rect.center = (WIDTH//2, HEIGHT//2)
+        if (self.rect.left < 0):
+            score1.increase()
+        if (self.rect.right > WIDTH):
+            score2.increase()
+        
+        self.rect.center = (WIDTH//2, HEIGHT//2)
 
-            self.vel_x *= random.choice([1, -1])
-            self.vel_y *= random.choice([1, -1])
+        self.vel_x = 5
+        self.vel_y = 5
+
+        self.vel_x *= random.choice([1, -1])
+        self.vel_y *= random.choice([1, -1])
 
     def update(self, *args):
         if self.rect.colliderect(paddle_1.rect):
-            self.vel_x *= -1
+            self.vel_x *= -1.05
         if self.rect.colliderect(paddle_2.rect):
-            self.vel_x *= -1
+            self.vel_x *= -1.05
 
         if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
             self.vel_y *= -1
@@ -56,9 +64,6 @@ class Ball(pygame.sprite.Sprite):
 
         self.rect.x += self.vel_x
         self.rect.y += self.vel_y
-
-
-
 
 
 class Player(pygame.sprite.Sprite):
@@ -106,6 +111,21 @@ class AiPlayer(pygame.sprite.Sprite):
             self.rect.y += self.speed
 
 
+class Score():
+    roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
+    my_font = pygame.font.Font(roboto1, 26)
+
+    def __init__(self, score_pos):
+        self.num = 0
+        self.image = Score.my_font.render(f'{self.num}', True, light_grey)
+        self.rect = self.image.get_rect(midtop=score_pos)
+
+    def increase(self):
+        self.num += 1
+        self.image = Score.my_font.render(f'{self.num}', True, light_grey)
+
+    def update(self):
+        pass
 
             
 
@@ -123,5 +143,8 @@ paddle_2 = AiPlayer(ai_speed, midleft=(5, HEIGHT//2))
 # Place ball in the middle of screen
 ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
 
-sprites = SpriteGroup(ball_1, paddle_1, paddle_2)
+score1 = Score(score1_pos)
+score2 = Score(score2_pos)
+
+sprites = SpriteGroup(ball_1, paddle_1, paddle_2, score1, score2)
 

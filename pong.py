@@ -23,7 +23,6 @@ def main():
 
         # Render / Draw
         screen.fill(bg_color)
-        screen.blits(scores_info)
         pygame.draw.aaline(screen, grey3, scr_rect.midtop, scr_rect.midbottom)
         sprites.update()
         sprites.draw(screen)
