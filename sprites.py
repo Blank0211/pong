@@ -1,8 +1,17 @@
 import random
+
+
 import pygame
-pygame.font.init()
+
 
 from settings import *
+
+
+pygame.font.init()
+roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
+my_font = pygame.font.Font(roboto1, 26)
+count_font = pygame.font.Font(roboto1, 34)
+
 
 # Classes and instances for sprites
 class SpriteGroup():
@@ -24,6 +33,7 @@ class SpriteGroup():
             screen.blit(sprite.image, sprite.rect)
 
 
+score_event = pygame.USEREVENT
 class Ball(pygame.sprite.Sprite):
 
     def __init__(self, radius, pos_x, pos_y):
@@ -60,6 +70,7 @@ class Ball(pygame.sprite.Sprite):
         if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
             self.vel_y *= -1
         if (self.rect.left < 0) or (self.rect.right > WIDTH):
+            pygame.time.set_timer(score_event, 1, 1)
             self.restart()
 
         self.rect.x += self.vel_x
@@ -112,17 +123,15 @@ class AiPlayer(pygame.sprite.Sprite):
 
 
 class Score():
-    roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
-    my_font = pygame.font.Font(roboto1, 26)
 
     def __init__(self, score_pos):
         self.num = 0
-        self.image = Score.my_font.render(f'{self.num}', True, light_grey)
+        self.image = my_font.render(f'{self.num}', True, light_grey)
         self.rect = self.image.get_rect(midtop=score_pos)
 
     def increase(self):
         self.num += 1
-        self.image = Score.my_font.render(f'{self.num}', True, light_grey)
+        self.image = my_font.render(f'{self.num}', True, light_grey)
 
     def update(self):
         pass
