@@ -7,11 +7,6 @@ import pygame
 from settings import *
 
 
-pygame.font.init()
-roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
-my_font = pygame.font.Font(roboto1, 26)
-count_font = pygame.font.Font(roboto1, 34)
-
 
 # Classes and instances for sprites
 class SpriteGroup():
@@ -33,7 +28,7 @@ class SpriteGroup():
             screen.blit(sprite.image, sprite.rect)
 
 
-score_event = pygame.USEREVENT
+timer = pygame.USEREVENT
 class Ball(pygame.sprite.Sprite):
 
     def __init__(self, radius, pos_x, pos_y):
@@ -47,19 +42,28 @@ class Ball(pygame.sprite.Sprite):
         self.vel_x = 5
         self.vel_y = 5
 
+        # Setup for countdown
+        self.scored = None
+        self.crnt_time = None
+        self.counter = 3
+
     def restart(self):
+        self.crnt_time = pygame.time.get_ticks()
+
         if (self.rect.left < 0):
             score1.increase()
         if (self.rect.right > WIDTH):
             score2.increase()
         
+        # Keep the ball paused until countdown is finished
         self.rect.center = (WIDTH//2, HEIGHT//2)
+        self.vel_x, self.vel_y = 0, 0
 
-        self.vel_x = 5
-        self.vel_y = 5
-
-        self.vel_x *= random.choice([1, -1])
-        self.vel_y *= random.choice([1, -1])
+        if self.crnt_time - self.scored > 2100:
+            self.vel_x = 5
+            self.vel_y = 5
+            self.vel_x *= random.choice([1, -1])
+            self.vel_y *= random.choice([1, -1])
 
     def update(self, *args):
         if self.rect.colliderect(paddle_1.rect):
@@ -70,7 +74,9 @@ class Ball(pygame.sprite.Sprite):
         if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
             self.vel_y *= -1
         if (self.rect.left < 0) or (self.rect.right > WIDTH):
-            pygame.time.set_timer(score_event, 1, 1)
+            # Setup for countdoun
+            self.scored = pygame.time.get_ticks()
+            pygame.time.set_timer(timer, 700, 3)
             self.restart()
 
         self.rect.x += self.vel_x

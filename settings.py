@@ -2,6 +2,12 @@ import os
 import pygame
 from my_funcs import to_rgb
 
+# Font
+pygame.font.init()
+roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
+my_font = pygame.font.Font(roboto1, 26)
+count_font = pygame.font.Font(roboto1, 34)
+
 # Colours
 cyan = to_rgb('#008b92')
 light_cyan = to_rgb('#9fcad6')
@@ -13,8 +19,6 @@ light_grey = to_rgb('#d9e0e9')
 grey3 = to_rgb('7686a6')
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-
-
 
 # Screen & Background Settings
 WIDTH = 800
@@ -37,4 +41,4 @@ pad_height = 90
 score1_pos = ((WIDTH//2) + 30, 10) # Right to mid
 score2_pos = ((WIDTH//2) - 30, 10) # Left to mid
 
-
+countdown_pos = (WIDTH//2, (HEIGHT//2) + 50)

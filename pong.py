@@ -10,29 +10,17 @@ scr_rect = screen.get_rect()
 pygame.display.set_caption("Pong")
 clock = pygame.time.Clock()
 
-# Match Countdoun
 def countdown():
-    counter = 3
-    my_timer = pygame.USEREVENT + 1
-    pygame.time.set_timer(my_timer, 1000)
+    if ball_1.counter == 0:
+        ball_1.counter = 3
+        ball_1.restart()
+        ball_1.crnt_time, ball_1.scored = 0, 0
+        return
 
-    text_surf = count_font.render(f"{counter}", True, light_grey)
-    text_rect = text_surf.get_rect(center=(WIDTH//2, HEIGHT//2))
-        
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == my_timer:
-                counter -= 1
-
-        text_surf = count_font.render(f"{counter}", True, dark_green)
-        screen.blit(text_surf, text_rect)
-        if counter < 1:
-            running = False
-
-        pygame.display.flip()
-
-
+    count_surf = count_font.render(f"{ball_1.counter}", True, light_grey)
+    count_rect = count_surf.get_rect(center=countdown_pos)
+    screen.blit(count_surf, count_rect)
+    
 
 # Game Loop
 def main():
@@ -42,15 +30,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == score_event:
-                countdown()
-        keys = pygame.key.get_pressed()
+            if event.type == timer:
+                ball_1.counter -= 1
 
         # Render / Draw
         screen.fill(bg_color)
         pygame.draw.aaline(screen, grey3, scr_rect.midtop, scr_rect.midbottom)
         sprites.update()
         sprites.draw(screen)
+        
+        if ball_1.scored:
+            countdown()
+
 
         # Update Display & Limit FPS
         pygame.display.flip()
