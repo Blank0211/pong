@@ -66,11 +66,27 @@ class Ball(pygame.sprite.Sprite):
             self.vel_y *= random.choice([1, -1])
 
     def update(self, *args):
-        if self.rect.colliderect(paddle_1.rect):
-            self.vel_x *= -1.05
-        if self.rect.colliderect(paddle_2.rect):
-            self.vel_x *= -1.05
+        if self.rect.colliderect(paddle_1.rect) and self.vel_x > 0:
+            if abs(self.rect.right - paddle_1.rect.left) < 10:
+                self.vel_x *= -1
+            elif (abs(self.rect.bottom - paddle_1.rect.top) < 10 and
+                  self.vel_y > 0):
+                self.vel_y *= -1
+            elif (abs(self.rect.top - paddle_1.rect.bottom) < 10 and
+                  self.vel_y < 0):
+                self.vel_y *= -1
+        
+        if self.rect.colliderect(paddle_2.rect) and self.vel_x < 0:
+            if abs(self.rect.left - paddle_2.rect.right) < 10:
+                self.vel_x *= -1
+            elif (abs(self.rect.bottom - paddle_2.rect.top) < 10 and
+                  self.vel_y > 0):
+                self.vel_y *= -1
+            elif (abs(self.rect.top - paddle_2.rect.bottom) < 10 and
+                  self.vel_y < 0):
+                self.vel_y *= -1
 
+        
         if (self.rect.top <= 0) or (self.rect.bottom >= HEIGHT):
             self.vel_y *= -1
         if (self.rect.left < 0) or (self.rect.right > WIDTH):
