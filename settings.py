@@ -8,6 +8,14 @@ roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
 my_font = pygame.font.Font(roboto1, 26)
 count_font = pygame.font.Font(roboto1, 34)
 
+# Sounds Effects
+pygame.mixer.init()
+pong_path = os.path.join('assets', 'pong.ogg')
+score_path = os.path.join('assets', 'score.ogg')
+pong_se = pygame.mixer.Sound(pong_path)
+score_se = pygame.mixer.Sound(score_path)
+
+
 # Colours
 cyan = to_rgb('#008b92')
 light_cyan = to_rgb('#9fcad6')

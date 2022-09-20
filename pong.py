@@ -4,7 +4,6 @@ from sprites import *
 from my_funcs import natural_sort as natsort
 
 # General Setup
-pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 scr_rect = screen.get_rect()
 pygame.display.set_caption("Pong")
@@ -52,4 +51,5 @@ def main():
     sys.exit(0)
 
 if __name__ == '__main__':
+    pygame.init()
     main()
