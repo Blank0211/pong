@@ -13,7 +13,7 @@ BLACK = (0, 0, 0)
 # Screen & Background Settings
 WIDTH = 800
 HEIGHT = 500
-FPS = 60
+FPS = 120
 bg_color = red1
 
 # General Setup
