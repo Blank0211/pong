@@ -34,10 +34,9 @@ class Ball(pygame.sprite.Sprite):
     def __init__(self, radius, pos_x, pos_y):
         super().__init__()
         
-        self.image = pygame.Surface((radius*2, radius*2))
+        self.image = pygame.image.load(ball_img).convert()
         self.rect = self.image.get_rect(center=(pos_x, pos_y))
-        pygame.draw.circle(self.image, ball_color, (radius, radius), radius)
-        self.image.set_colorkey(BLACK)
+        self.image.set_colorkey(WHITE)
 
         self.vel_x = 5
         self.vel_y = 5
@@ -111,29 +110,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, speed, **pos):
         super().__init__()
 
-        self.image = pygame.Surface((pad_width, pad_height))
-        self.image.fill(pad_color)
-        self.rect = self.image.get_rect(**pos)
-
-        self.speed = speed
-
-    def update(self):
-        keys = pygame.key.get_pressed()
-
-        # Move up and down
-        if keys[pygame.K_w]:
-            self.rect.y -= self.speed
-        if keys[pygame.K_s]:
-            self.rect.y += self.speed
-
-
-class AiPlayer(pygame.sprite.Sprite):
-    """Class representing left player's paddle"""
-    def __init__(self, speed, **pos):
-        super().__init__()
-
-        self.image = pygame.Surface((pad_width, pad_height))
-        self.image.fill(pad_color)
+        self.image = pygame.image.load(paddle_img).convert()
         self.rect = self.image.get_rect(**pos)
 
         self.speed = speed
@@ -145,6 +122,26 @@ class AiPlayer(pygame.sprite.Sprite):
         if keys[pygame.K_UP]:
             self.rect.y -= self.speed
         if keys[pygame.K_DOWN]:
+            self.rect.y += self.speed
+
+
+class AiPlayer(pygame.sprite.Sprite):
+    """Class representing left player's paddle"""
+    def __init__(self, speed, **pos):
+        super().__init__()
+
+        self.image = pygame.image.load(paddle_img).convert()
+        self.rect = self.image.get_rect(**pos)
+
+        self.speed = speed
+
+    def update(self):
+        keys = pygame.key.get_pressed()
+
+        # Move up and down
+        if keys[pygame.K_w]:
+            self.rect.y -= self.speed
+        if keys[pygame.K_s]:
             self.rect.y += self.speed
 
 
@@ -164,18 +161,14 @@ class Score():
     def update(self):
         pass
 
-            
-
-
-
 
 # ------ Sprite Instances ------
 
 # Set up right paddle
-paddle_1 = Player(player_speed, midright=(795, HEIGHT//2))
+paddle_1 = Player(player1_speed, midright=(795, HEIGHT//2))
 
 # Set up left paddle
-paddle_2 = AiPlayer(ai_speed, midleft=(5, HEIGHT//2))
+paddle_2 = AiPlayer(player2_speed, midleft=(5, HEIGHT//2))
 
 # Set up ball in middle
 ball_1 = Ball(14, WIDTH//2, HEIGHT//2)
@@ -185,4 +178,3 @@ score2 = Score(score2_pos) # Right score
 
 # Group all sprites
 sprites = SpriteGroup(ball_1, paddle_1, paddle_2, score1, score2)
-

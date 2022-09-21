@@ -1,13 +1,7 @@
 import pygame, sys
 from settings import *
 from sprites import *
-from my_funcs import natural_sort as natsort
 
-# General Setup
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-scr_rect = screen.get_rect()
-pygame.display.set_caption("Pong")
-clock = pygame.time.Clock()
 
 def countdown():
     if ball_1.counter == 0:
@@ -51,5 +45,4 @@ def main():
     sys.exit(0)
 
 if __name__ == '__main__':
-    pygame.init()
     main()

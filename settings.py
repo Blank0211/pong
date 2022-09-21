@@ -2,6 +2,27 @@ import os
 import pygame
 from my_funcs import to_rgb
 
+
+# Colours
+light_grey = to_rgb('#d9e0e9')
+grey3 = to_rgb('7686a6')
+red1 = to_rgb('#2F373F')
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+# Screen & Background Settings
+WIDTH = 800
+HEIGHT = 500
+FPS = 60
+bg_color = red1
+
+# General Setup
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+scr_rect = screen.get_rect()
+pygame.display.set_caption("Pong")
+clock = pygame.time.Clock()
+
 # Font
 pygame.font.init()
 roboto1 = os.path.join('assets', 'Roboto-Regular.ttf')
@@ -15,31 +36,12 @@ score_path = os.path.join('assets', 'score.ogg')
 pong_se = pygame.mixer.Sound(pong_path)
 score_se = pygame.mixer.Sound(score_path)
 
-
-# Colours
-cyan = to_rgb('#008b92')
-light_cyan = to_rgb('#9fcad6')
-dark_cyan = to_rgb('#00404a')
-dark_green = to_rgb('#002324')
-sandy = to_rgb('#d4cbc2')
-sandy_2 = to_rgb('#adaa9d')
-light_grey = to_rgb('#d9e0e9')
-grey3 = to_rgb('7686a6')
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
-# Screen & Background Settings
-WIDTH = 800
-HEIGHT = 500
-FPS = 60
-bg_color = dark_cyan
-
 # Paddle & Ball Settings
-pad_color = light_cyan
-ball_color = sandy_2
+paddle_img = os.path.join('assets', 'Paddle.png')
+ball_img = os.path.join('assets', 'Ball.png')
 
-player_speed = 6
-ai_speed = 5
+player1_speed = 6
+player2_speed = 5
 ball_speed = None
 
 pad_width = 10
